@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avatar</title>
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+        padding: 8px 0 0;
+        background-color: #008c8c;
+      }
+      button {
+        border: 0;
+        background-color: #002fa7;
+        padding: 8px;
+        border-radius: 6px;
+        color: #fff;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="group">
+      <button onclick="changeBgColor(true)">needWhiteBg</button>
+      <button onclick="changeBgColor(false)">not needWhiteBg</button>
+
+      <button onclick="exportImage(1)">download</button>
+      <button onclick="exportImage(2)">download 2x</button>
+      <button onclick="exportImage(5)">download 5x</button>
+    </div>
+    <canvas id="avatar" width="720" height="720"></canvas>
+
+    <script>
+      let scale = 1;
+      let needWhiteBg = true;
+      const bgColor = '#ffffff';
+      const partsColor = '#000000';
+
+      const canvas = document.getElementById('avatar');
+      const ctx = canvas.getContext('2d', {
+        antialias: true,
+        alpha: true,
+      });
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      const drawAvatar = () => {
+        clearCanvas();
+
+        if (needWhiteBg) {
+          ctx.fillStyle = bgColor;
+
+          ctx.fillRect(0, 0, 720, 720);
+
+          ctx.beginPath();
+          ctx.arc(360, 360, 360, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillRect(110, 110, 230, 230);
+          ctx.fillRect(380, 110, 230, 230);
+          ctx.fillRect(110, 380, 230, 230);
+          ctx.fillRect(380, 380, 230, 230);
+        }
+
+        ctx.fillStyle = partsColor;
+
+        ctx.beginPath();
+        ctx.moveTo(225, 110);
+        ctx.lineTo(110, 340);
+        ctx.lineTo(340, 340);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = partsColor;
+        ctx.arc(495, 225, 115, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = partsColor;
+        ctx.fillRect(110, 380, 230, 110);
+        ctx.beginPath();
+        ctx.arc(225, 495, 115, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(495, 495, 115, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      const clearCanvas = () => {
+        ctx.clearRect(0, 0, 720 * scale, 720 * scale);
+      };
+
+      const scaleElement = () => {
+        const canvas = document.getElementById('avatar');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 720 * scale;
+        canvas.height = 720 * scale;
+        ctx.scale(scale, scale);
+
+        drawAvatar();
+      };
+
+      const changeBgColor = (value) => {
+        needWhiteBg = value;
+
+        drawAvatar();
+      };
+
+      const exportImage = (number) => {
+        scale = number;
+        scaleElement();
+
+        const dataURL = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+
+        link.download = 'avatar.png';
+        link.href = dataURL;
+        link.click();
+      };
+
+      scaleElement(1);
+      drawAvatar();
+    </script>
+  </body>
+</html>
