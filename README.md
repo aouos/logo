@@ -13,4 +13,4 @@ Letter Transformation Shape
 
 Preview design results
 
-![logo](./avatar_1x.png)
+![logo](./logo.svg)

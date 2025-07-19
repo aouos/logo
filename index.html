@@ -1,40 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Avatar</title>
+    <link rel="icon" href="logo.svg" />
+    <title>Aouos Logo</title>
 
     <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
       body {
+        font-family: monospace;
+        padding-top: 72px;
+        font-size: 1rem;
+        --grid: 24px;
+        background: repeating-linear-gradient(
+            0deg,
+            #0001 0 1px,
+            transparent 1px var(--grid)
+          ),
+          repeating-linear-gradient(
+            90deg,
+            #0001 0 1px,
+            transparent 1px var(--grid)
+          );
+        background-size: var(--grid) var(--grid);
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 14px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px) saturate(180%);
+        -webkit-backdrop-filter: blur(10px) saturate(180%);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      main {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
-        margin: 0;
-        padding: 8px 0 0;
-        background-color: #008c8c;
+        height: 100vh;
+        overflow: auto;
+        padding: 24px;
       }
+
       button {
         border: 0;
-        background-color: #002fa7;
+        background-color: #1a1a1a;
         padding: 8px;
         border-radius: 6px;
+        line-height: 1;
         color: #fff;
         cursor: pointer;
       }
+
+      .svg_file {
+        margin-left: auto;
+        margin-right: 24px;
+      }
+
+      .btn_group {
+        display: flex;
+        gap: 8px;
+      }
     </style>
   </head>
-  <body>
-    <div class="group">
-      <button onclick="changeBgColor(true)">needWhiteBg</button>
-      <button onclick="changeBgColor(false)">not needWhiteBg</button>
 
-      <button onclick="exportImage(1)">download</button>
-      <button onclick="exportImage(2)">download 2x</button>
-      <button onclick="exportImage(5)">download 5x</button>
-    </div>
-    <canvas id="avatar" width="720" height="720"></canvas>
+  <body>
+    <header class="controls header">
+      <div>AOUOS</div>
+      <div class="svg_file">
+        <button onclick="downloadSVG()">下载 SVG</button>
+      </div>
+      <div class="btn_group">
+        <button onclick="changeBgColor(true)">白色背景</button>
+        <button onclick="changeBgColor(false)">透明背景</button>
+        <button onclick="exportImage(1)">下载 PNG</button>
+        <button onclick="exportImage(2)">下载 2X</button>
+        <button onclick="exportImage(5)">下载 5X</button>
+      </div>
+    </header>
+    <main>
+      <canvas id="logo" width="720" height="720"></canvas>
+    </main>
 
     <script>
       let scale = 1;
@@ -42,7 +103,7 @@
       const bgColor = '#ffffff';
       const partsColor = '#000000';
 
-      const canvas = document.getElementById('avatar');
+      const canvas = document.getElementById('logo');
       const ctx = canvas.getContext('2d', {
         antialias: true,
         alpha: true,
@@ -51,7 +112,7 @@
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
 
-      const drawAvatar = () => {
+      const drawLogo = () => {
         clearCanvas();
 
         if (needWhiteBg) {
@@ -99,19 +160,19 @@
       };
 
       const scaleElement = () => {
-        const canvas = document.getElementById('avatar');
+        const canvas = document.getElementById('logo');
         const ctx = canvas.getContext('2d');
         canvas.width = 720 * scale;
         canvas.height = 720 * scale;
         ctx.scale(scale, scale);
 
-        drawAvatar();
+        drawLogo();
       };
 
       const changeBgColor = (value) => {
         needWhiteBg = value;
 
-        drawAvatar();
+        drawLogo();
       };
 
       const exportImage = (number) => {
@@ -121,13 +182,20 @@
         const dataURL = canvas.toDataURL('image/png');
         const link = document.createElement('a');
 
-        link.download = 'avatar.png';
+        link.download = 'logo.png';
         link.href = dataURL;
         link.click();
       };
 
+      const downloadSVG = () => {
+        const link = document.createElement('a');
+        link.href = 'logo.svg';
+        link.download = 'logo.svg';
+        link.click();
+      };
+
       scaleElement(1);
-      drawAvatar();
+      drawLogo();
     </script>
   </body>
 </html>

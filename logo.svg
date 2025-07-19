@@ -1,3 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="481px" height="481px" viewBox="-0.5 -0.5 481 481" style="background-color: rgb(255, 255, 255);"><defs/><g><rect x="0" y="0" width="480" height="480" fill="rgb(255, 255, 255)" stroke="none" pointer-events="all"/><path d="M 80 70 L 240 150 L 80 230 Z" fill="#eee170" stroke="none" transform="rotate(270,160,150)" pointer-events="all"/><ellipse cx="325" cy="325" rx="75" ry="75" fill="#d25735" stroke="none" pointer-events="all"/><rect x="90" y="250" width="140" height="140" fill="#54a258" stroke="none" pointer-events="all"/><ellipse cx="325" cy="155" rx="75" ry="75" fill="#87b6f9" stroke="none" pointer-events="all"/></g></svg>
+<svg width="720" height="720" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+  <g fill="#000000">
+    <path d="M 225 110 L 110 340 L 340 340 Z" />
+    <circle cx="495" cy="225" r="115" />
+    <rect x="110" y="380" width="230" height="110" />
+    <circle cx="225" cy="495" r="115" />
+    <circle cx="495" cy="495" r="115" />
+  </g>
+</svg>
